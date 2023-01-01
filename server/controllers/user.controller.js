@@ -2,6 +2,7 @@ const  {User } = require('../models/user.model');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
 const { request, response } = require('express');
+const { SECRET_KEY } = require("../config/jwt.config");
 
 
 module.exports.index = (request, response) => {
@@ -10,7 +11,11 @@ module.exports.index = (request, response) => {
     });
 }
 
-
+module.exports.createUser = (request, response) => {
+    User.create(request.body)
+        .then(user => response.json(user))
+        .catch(err => response.status(400).json(err))
+}
 
 
 module.exports.getAllUsers = (request, response) => {
@@ -45,15 +50,17 @@ module.exports.register = (request, response) => {
         .then(user => {
             const userToken = jwt.sign({
                 id: user._id
-            }, process.env.SECRET_KEY);
+            }, SECRET_KEY);
             response
-                .cookie("usertoken", userToken, process.env.SECRET_KEY, {
+                .cookie("usertoken", userToken, SECRET_KEY, {
                     httpOnly: true
                 })
+
                 .json({ msg: "success!", user: user });
         })
         .catch(err => response.json(err));
 }
+
 
 module.exports.login = async (request, response) => {
     const user = await User.findOne({ email: request.body.email });
@@ -66,9 +73,9 @@ module.exports.login = async (request, response) => {
     }
     const userToken = jwt.sign({
         id: user._id
-    }, process.env.SECRET_KEY);
+    }, SECRET_KEY);
     response
-        .cookie("usertoken", userToken, process.env.SECRET_KEY, {
+        .cookie("usertoken", userToken, SECRET_KEY, {
             httpOnly: true
         })
         .json({ msg: "success!" });

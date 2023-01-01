@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -38,38 +39,24 @@ const useStyles = makeStyles((theme) => ({
 
 // export default function SignIn() {
   const SignIn = (props) => {
-  const [data, setData] = useState({
-    email: "",
-    password: "",
-    error: null,
-  });
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
-  const { email, password, error } = data;
 
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setData({ ...data, [e.target.name]: e.target.value });
+  // };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      setData({ ...data, error: null });
-      const res = await axios.post(
-        "/signin",
-        { email, password },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      localStorage.setItem("token", res.data);
-      console.log(res.data.user.user);
-      props.user(res.data.user.user);
-      // props.history.push("/");
-    } catch (err) {
-      setData({ ...data, error: err.response.data.error });
-    }
+    axios.post('http://localhost:8000/api/login', {
+        email,
+        password,
+    })
+    // .then(res=>console.log(res.data.msg))
+    .then(res => navigate("/"))
+    .catch(err=>console.log(err))
   };
   const classes = useStyles();
 
@@ -83,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -94,8 +81,9 @@ const useStyles = makeStyles((theme) => ({
             name="email"
             autoComplete="email"
             autoFocus
-            value={email}
-            onChange={handleChange}
+            // value={email}
+            onChange={e=>setEmail(e.target.value)}
+            // onChange={handleChange}
           />
           <TextField
             variant="outlined"
@@ -107,21 +95,23 @@ const useStyles = makeStyles((theme) => ({
             type="password"
             id="password"
             autoComplete="current-password"
-            value={password}
-            onChange={handleChange}
+            // value={password}
+            // onChange={handleChange}
+            onChange={e=>setPassword(e.target.value)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          {error ? <p className="text-danger">{error}</p> : null}
+          {/* {error ? <p className="text-danger">{error}</p> : null} */}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handleSubmit}
+            onSubmit={handleSubmit}
+            // onClick={handleSubmit}
           >
             Sign In
           </Button>

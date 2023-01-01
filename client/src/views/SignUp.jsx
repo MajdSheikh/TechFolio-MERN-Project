@@ -14,7 +14,8 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from "axios";
-
+import { useNavigate } from 'react-router-dom'
+import e from "cors";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '100%', 
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -37,39 +38,42 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// export default function SignUp() {
+
   const SignUp = (props) => {
-    const [data, setData] = useState({
-      name: "",
-      email: "",
-      password: "",
-      error: null,
-    });
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
 
-  const { name, email, password, confirmPassword, error } = data;
 
-  const handleChange = (e) => {
-    setData({ ...data, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = async (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    try {
-      setData({ ...data, error: null });
-      await axios.post(
-        "/signup",
-        { name, email, password },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      props.history.push("/login");
-    } catch (err) {
-      setData({ ...data, error: err.response.data.error });
+    axios.post('http://localhost:8000/api/register', {
+        name,
+        email,
+        password,
+        confirmPassword
+    })
+    .then(res=>console.log(res.data))
+    .catch(err=>console.log(err))
+}
+
+  const handleName = (e) => {
+    setName(e.target.value);
     }
-  };
+    const handleEmail = (e) => {
+      setEmail(e.target.value);
+  }
+  const handlePassword = (e) => {
+    setPassword(e.target.value);
+}
+const handleConfirmPassword = (e) => {
+  setConfirmPassword(e.target.value);
+}
+
+
+
+
   const classes = useStyles();
 
   return (
@@ -82,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <TextField
@@ -93,8 +97,8 @@ const useStyles = makeStyles((theme) => ({
                 label="Name"
                 name="name"
                 autoComplete="name"
+                onChange={handleName}
                 value={name}
-                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -106,8 +110,8 @@ const useStyles = makeStyles((theme) => ({
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                onChange={handleEmail}
                 value={email}
-                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12}>
@@ -120,8 +124,8 @@ const useStyles = makeStyles((theme) => ({
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={handlePassword}
                 value={password}
-                onChange={handleChange}
               />
             </Grid>
 
@@ -134,21 +138,20 @@ const useStyles = makeStyles((theme) => ({
                 label="Confirm Password"
                 type="password"
                 id="confirmPassword"
+                onChange={handleConfirmPassword}
                 autoComplete="current-password"
                 value={confirmPassword}
-                onChange={handleChange}
               />
             </Grid>
 
           </Grid>
-          {error ? <p className="text-danger">{error}</p> : null}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={handleSubmit}
+            // onSubmit={handleSubmit}
           >
             Sign Up
           </Button>
@@ -165,6 +168,7 @@ const useStyles = makeStyles((theme) => ({
       </Box>
     </Container>
   );
+  
 }
 
 export default SignUp;

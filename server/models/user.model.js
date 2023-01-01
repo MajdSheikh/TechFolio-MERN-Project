@@ -15,7 +15,7 @@ const UserSchema = new mongoose.Schema({
 
     phoneNumber: {
         type: Number,
-        required: [true, "phone number is required"],
+        // required: [true, "phone number is required"],
     },
 
      email: {

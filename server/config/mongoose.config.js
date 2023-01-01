@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 //   useUnifiedTopology: true
 // })
 
+// "mongodb://localhost/userportfolio",
 
 mongoose.connect("mongodb://localhost/userportfolio", {
     useNewUrlParser: true,

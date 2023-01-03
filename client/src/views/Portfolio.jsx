@@ -15,6 +15,7 @@ const Portfolio = (props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
+
         axios.get('http://localhost:8000/api/portfolio/'+portfolioId)
             .then(res => {
                 setPerson(res.data);
@@ -34,12 +35,28 @@ const Portfolio = (props) => {
     //     .catch(err => console.log(err));
     // };
 
+    const deletePortfolio = portfolioId => {
+        axios.delete('http://localhost:8000/api/portfolio/' + portfolioId)
+            .then(res=> navigate("/PortfolioLists"))
+            .catch(err => console.error(err))
+    }
+
+    // const removeFromDom = portfolioId => {
+    //     setPerson(person.filter(person => person._id != portfolioId));
+    // }
+
+    // const remove = j=>{
+    //     setPerson(person.filter(one=>one._id !=j));
+    //   }
+
+
     return (
     
         <div>
             <p><img src={`http://localhost:8000/${person.photo}`} alt="" height="100px" width="100px"></img></p>
             <p>Name:{data.user.name}</p>
             <p> email: {data.user.email}</p>
+            <p> address: {person.address}</p>
             <p>skills: {person.skills}</p>
             <p>education: {person.education}</p>
             <p>phoneNumber: {person.phoneNumber}</p>
@@ -49,7 +66,10 @@ const Portfolio = (props) => {
             <p>projects: {person.projects}</p>
             <p>github: {person.github}</p>
             <p>linkedin: {person.linkedin}</p>
+            <p>{person._id}</p>
             {/* <button onClick={logout}>Logout</button> */}
+            <Link to={"/api/portfolio/" + portfolioId}>Edit</Link> 
+            <button onClick={e => {deletePortfolio(person._id)}}>Delete</button>
         </div>
     )
 }

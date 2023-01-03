@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const Form = () => {
@@ -29,7 +30,6 @@ const Form = () => {
     const handleSubmit =   (e) => {
         e.preventDefault();
         
-
         var data = JSON.parse(sessionStorage.getItem('user'))
         console.log(data.user._id)
         const formData = new FormData();
@@ -49,12 +49,11 @@ const Form = () => {
         formData.append('user_id', data.user._id);
 
         
-         axios.post('http://localhost:8000/api/portfolio', formData)
-         .then(res => navigate("/PortfolioLists"))
-       .catch(err => {
-          console.log(err);
-          
-       });
+        axios.post('http://localhost:8000/api/portfolio', formData)
+        .then(res => navigate("/PortfolioLists"))
+        .catch(err => {
+            console.log(err);
+        });
     }
 
 
@@ -67,150 +66,106 @@ const Form = () => {
     }
 
     return (
-        
+    <div style={{marginLeft:500,alignItems:"center", marginTop:50}} >
         <form onSubmit={handleSubmit} encType='multipart/form-data'>
-            <div>
-            <input 
-                type="file" 
-                accept=".png, .jpg, .jpeg"
-                name="photo"
-                // value={newUser.photo}
-                onChange={handlePhoto}
-            />
-            </div>
-
-
-
-            <div>
-            <input 
-                type="number"
-                placeholder="phone number"
-                name="phoneNumber"
-                value={newPortfolio.phoneNumber}
-                onChange={handleChange}
-            />
-          </div>
-
-            <div>
-              <input 
-                type="text"
-                placeholder="gender"
-                name="gender"
-                value={newPortfolio.gender}
-                onChange={handleChange}
-            />
-            </div>
-              
-
-            <div>
-              <input 
-                type="text"
-                placeholder="specialization"
-                name="specialization"
-                value={newPortfolio.specialization}
-                onChange={handleChange}
-            />
-            </div>
-
-            <div>
-            <input 
-                type="text"
-                placeholder="address"
-                name="address"
-                value={newPortfolio.address}
-                onChange={handleChange}
-            />
-            </div>
-
-
-            <div>
-            <input 
-                type="url"
-                placeholder="linkedin"
-                name="linkedin"
-                value={newPortfolio.linkedin}
-                onChange={handleChange}
-            />
-            </div>
-
-
-            <div>
-            <input 
-                type="url"
-                placeholder="github"
-                name="github"
-                value={newPortfolio.github}
-                onChange={handleChange}
-            />
-            </div>
-
-            <div>
-            <input 
-                type="text"
-                placeholder="skills"
-                name="skills"
-                value={newPortfolio.skills}
-                onChange={handleChange}
-            />
-            </div>
-
-            <div>
-            <input 
-                type="text"
-                placeholder="experience"
-                name="experience"
-                value={newPortfolio.experience}
-                onChange={handleChange}
-            />
-            </div>
-
-            <div>
-            <input 
-                type="text"
-                placeholder="education"
-                name="education"
-                value={newPortfolio.education}
-                onChange={handleChange}
-            />
-            </div>
-
-            <div>
-            <input 
-                type="text"
-                placeholder="summary"
-                name="summary"
-                value={newPortfolio.summary}
-                onChange={handleChange}
-            />
-            </div>
-
-            <div>
-            <input 
-                type="text"
-                placeholder="projects"
-                name="projects"
-                value={newPortfolio.projects}
-                onChange={handleChange}
-            />
-            </div>
-
-            <div>
-            <input 
-                type="text"
-                placeholder="profilePicUrl"
-                name="profilePicUrl"
-                value={newPortfolio.profilePicUrl}
-                onChange={handleChange}
-            />
-            </div>
-
-
-            <div>
-            <input 
-                type="submit"
-            />
-            </div>
-        </form>
+            <div class="form-group col-md-6">
+                <label for="inputAddress">Phone Number</label>
+                <input type="text" class="form-control" id="inputphone" placeholder="Phone Number" name="phoneNumber"
+                            value={newPortfolio.phoneNumber}
+                            onChange={handleChange} />
+            </div><br></br>
+            <div class="form-group col-md-6">
+                <label for="inputCity">Address</label>
+                <input type="text" class="form-control" id="inputAddress" placeholder="Address" name="address"
+                            value={newPortfolio.address}
+                            onChange={handleChange}/>
+            </div><br></br>
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-form-label col-sm-1 pt-0">Gender</legend>
+                    <div class="col-sm-1" >
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="gridRadios1" value="Female" checked={newPortfolio.gender === "Female"}
+                            onChange={handleChange}/>
+                            <label class="form-check-label" for="gridRadios1">
+                                Female
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="gender" id="gridRadios2" value="Male" checked={newPortfolio.gender === "Male"}
+                            onChange={handleChange}/>
+                            <label class="form-check-label" for="gridRadios2">
+                                Male
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset><br></br>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputpecialization">Specialization</label>
+                    <input type="text" class="form-control" id="inputpecialization" placeholder="Specialization" name="specialization"
+                                value={newPortfolio.specialization}
+                                onChange={handleChange}/>
+                </div><br></br>
+                <div class="form-group col-md-6">
+                    <label for="inputLinkedIn">LinkedIn</label>
+                    <input type="url" class="form-control" id="inputLinkedIn" placeholder="LinkedIn" name="linkedin"
+                                value={newPortfolio.linkedin}
+                                onChange={handleChange}/>
+                </div><br></br>
+                    <div class="form-group col-md-6">
+                    <label for="inputGitHub">GitHub</label>
+                    <input type="url" class="form-control" id="inputGitHub" placeholder="GitHub" name="github"
+                            value={newPortfolio.github}
+                            onChange={handleChange}/>
+                </div><br></br>
+                <div class="form-group col-md-6">
+                    <label for="Skills">Skills</label>
+                    <textarea class="form-control" id="SkillsTextarea1" rows="3" name="skills"
+                            value={newPortfolio.skills}
+                            onChange={handleChange}></textarea>
+                </div><br></br>
+                <div class="form-group col-md-6">
+                    <label for="education">Education</label>
+                    <textarea class="form-control" id="SkillsTextarea1" rows="3" name="education"
+                            value={newPortfolio.education}
+                            onChange={handleChange}></textarea>
+                </div><br></br>
+                <div class="form-group col-md-6">
+                    <label for="experience">Experience</label>
+                    <textarea class="form-control" id="SkillsTextarea1" rows="3"name="experience"
+                                value={newPortfolio.experience}
+                                onChange={handleChange}></textarea>
+                </div><br></br>
+                <div class="form-group col-md-6">
+                    <label for="Skills">Projects</label>
+                    <textarea class="form-control" id="SkillsTextarea1" rows="3" name="projects"
+                            value={newPortfolio.projects}
+                            onChange={handleChange}></textarea>
+                </div><br></br>
+                <div class="form-group col-md-6">
+                    <label for="Summary">Summary</label>
+                    <textarea class="form-control" id="SkillsTextarea1" rows="3" name="summary"
+                                value={newPortfolio.summary}
+                                onChange={handleChange}></textarea>
+                </div><br></br>
+                <div class="form-group col-md-6">
+                    <div class="input-group-prepend">
+                        <label for="Skills">Upload your picture</label>
+                    </div><br></br>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01"  
+                                    accept=".png, .jpg, .jpeg"
+                                    name="photo"
+                                    // value={newUser.photo}
+                                    onChange={handlePhoto}/>
+                    </div>
+                </div>
+            </div><br></br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>     
+    </div>
     );
 }
 

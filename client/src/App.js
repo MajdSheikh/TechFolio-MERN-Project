@@ -2,6 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
+import Update from './views/Update';
+
 import Form from './views/Form'
 import Portfolio from './views/Portfolio'
 
@@ -26,6 +28,8 @@ function App(props) {
         <Route path="/Form" element={<Form/>}></Route>
         <Route path="/PortfolioLists" element={<AllPortfolios/>}></Route>
         <Route path="/portfolio/:portfolioId" element={<Portfolio/> } ></Route>
+        <Route path="/api/portfolio/:portfolioId" element={<Update/> } ></Route>
+
       </Routes>
     </div>
   );

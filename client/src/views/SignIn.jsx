@@ -37,8 +37,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 // export default function SignIn() {
   const SignIn = (props) => {
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
@@ -53,9 +56,14 @@ const useStyles = makeStyles((theme) => ({
     axios.post('http://localhost:8000/api/login', {
         email,
         password,
+
     })
-    // .then(res=>console.log(res.data.msg))
-    .then(res => navigate("/"))
+    // .then(res=>console.log(res.data))
+
+    .then(res => {navigate(`/PortfolioLists`)
+    sessionStorage.setItem('user',JSON.stringify(res.data))
+
+  })
     .catch(err=>console.log(err))
   };
   const classes = useStyles();

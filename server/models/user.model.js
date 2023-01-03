@@ -9,14 +9,14 @@ const UserSchema = new mongoose.Schema({
 
      password: {
         type: String,
-        required: [true, "password is required"],
+        // required: [true, "password is required"],
         minlength: [8, "Password must be 8 characters or longer"]
     },
 
-    phoneNumber: {
-        type: Number,
-        // required: [true, "phone number is required"],
-    },
+    // phoneNumber: {
+    //     type: Number,
+    //     // required: [true, "phone number is required"],
+    // },
 
      email: {
         type: String,
@@ -31,41 +31,49 @@ const UserSchema = new mongoose.Schema({
         // validate: [{ validator: value => isEmail(value), msg: 'Invalid email.' }],
         // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, 'Please fill a valid email address']
     },
-    gender: {
-        type: String, 
-        enum: ["Male", "Female"]
-    },
-    specialization: {
-        type: String, 
-        // required: [true, 'specialization is required'],
-        minlength: [3, "It should be at least three characters."]
-    },
-    address: {
-        type: String, 
-        // required: [true, 'address is required'],
-        minlength: [3, "It should be at least three characters."]
-    },
-    linkedin: {
-        type: String, 
-    },
-    github: {
-        type: String, 
-    },
-    skills: {
-        type: String, 
-    },
-    experience: {
-        type: String, 
-    },
-    education: {
-        type: String, 
-    },
-    summary: {
-        type: String, 
-    },
-    projects: {
-        type: String, 
-    }
+    // gender: {
+    //     type: String, 
+    //     enum: ["Male", "Female"]
+    // },
+    // specialization: {
+    //     type: String, 
+    //     // required: [true, 'specialization is required'],
+    //     minlength: [3, "It should be at least three characters."]
+    // },
+    // address: {
+    //     type: String, 
+    //     // required: [true, 'address is required'],
+    //     minlength: [3, "It should be at least three characters."]
+    // },
+    // linkedin: {
+    //     type: String, 
+    // },
+    // github: {
+    //     type: String, 
+    // },
+    // skills: {
+    //     type: String, 
+    // },
+    // experience: {
+    //     type: String, 
+    // },
+    // education: {
+    //     type: String, 
+    // },
+    // summary: {
+    //     type: String, 
+    // },
+    // projects: {
+    //     type: String, 
+    // },
+    // profilePicUrl: {
+    //     type: String, 
+    //     // required: [true, "Profile picture is required"],
+    // },
+    // photo: {
+    //     type: String
+    // },
+
 
 }, { timestamps: true });
 

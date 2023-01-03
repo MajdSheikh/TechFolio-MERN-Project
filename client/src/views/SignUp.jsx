@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+    const navigate = useNavigate();
 
 
   const handleSubmit = e => {
@@ -54,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
         password,
         confirmPassword
     })
-    .then(res=>console.log(res.data))
+    .then(res=>navigate("/"))
     .catch(err=>console.log(err))
 }
 

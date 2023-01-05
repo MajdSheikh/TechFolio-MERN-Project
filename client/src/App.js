@@ -3,6 +3,9 @@ import './App.css';
 import SignIn from './views/SignIn';
 import SignUp from './views/SignUp';
 import Update from './views/Update';
+import Home from './components/home/Home';
+
+import Main from './components/home/Main';
 
 import Form from './views/Form'
 import Portfolio from './views/Portfolio'
@@ -19,7 +22,6 @@ function App(props) {
 
   return (
     <div className="App">
-      <h1>Welcome to TechFolio</h1>     
       {/* <div><img src={`http://localhost:8000/${post.photo}`} alt="ss" width="100%" height="100%"></img></div> */}
 
       <Routes>
@@ -29,6 +31,8 @@ function App(props) {
         <Route path="/PortfolioLists" element={<AllPortfolios/>}></Route>
         <Route path="/portfolio/:portfolioId" element={<Portfolio/> } ></Route>
         <Route path="/api/portfolio/:portfolioId" element={<Update/> } ></Route>
+        <Route path="/home/:portfolioId"  element={<Home />}></Route>
+        <Route path="/main" element={<Main />}></Route>
 
       </Routes>
     </div>
